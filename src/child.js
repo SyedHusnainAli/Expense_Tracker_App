@@ -1,10 +1,38 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {TransactionContext} from './transContext'
 
 function Child(){
 
-let transactions = useContext(TransactionContext)
+let {transactions,  addTransaction} = useContext(TransactionContext)
 
+let [newDesc, setDesc] = useState("")
+let [newAmount, setAmount] = useState(0)
+
+const handleAddition = (event) =>{
+  event.preventDefault()
+  addTransaction({
+    amount:newAmount,
+    desc: newDesc
+  })
+}
+
+const getIncome = () =>{
+  let income = 0;
+  for(var i = 0; i < transactions.length; i ++){
+    if (transactions[i].amount > 0)
+    income += transactions[i].amount
+  }
+  return income;
+}
+
+const getExpense = () =>{
+  let Expense = 0;
+  for(var i = 0; i < transactions.length; i ++){
+    if (transactions[i].amount < 0)
+    Expense += transactions[i].amount
+  }
+  return Expense;
+}
 
     return(
   
@@ -13,8 +41,8 @@ let transactions = useContext(TransactionContext)
         <h3>Your Balance <br /> $245 </h3>
   
         <div className="expense-container">
-           <h3> INCOME <br /> $500 </h3>
-           <h3> EXPENSE <br /> $230 </h3>
+           <h3> INCOME <br />   {getIncome()} </h3>
+           <h3> EXPENSE <br /> {getExpense()} </h3>
         </div>
   
             <h3>histroy</h3>  
@@ -23,7 +51,7 @@ let transactions = useContext(TransactionContext)
 
           <ul className="transaction-list">
             {transactions.map((tranObj, ind)=>{
-           return (  <li>
+           return (  <li key={ind}>
             <span> {tranObj.desc} </span>
             <span> {tranObj.amount} </span>
            </li>
@@ -36,15 +64,15 @@ let transactions = useContext(TransactionContext)
          <h3>Add new transaction</h3>
             <hr />
 
-            <form className="transaction-form">
+            <form className="transaction-form" onSubmit={handleAddition}>
               <label>
                 Enter Description <br />
-                <input type="tex" required />
+                <input type="tex" onChange={(ev) =>setDesc(ev.target.value)} required />
               </label>
               <br />
               <label>
                 Enter Amount <br />
-                <input type="number" required />
+                <input type="number" onChange={(ev) =>setAmount(ev.target.value)} required />
               </label>
               <br />
 <input type="submit" value="Add Transaction" />
