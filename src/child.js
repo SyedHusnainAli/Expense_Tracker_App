@@ -11,9 +11,13 @@ let [newAmount, setAmount] = useState(0)
 const handleAddition = (event) =>{
   event.preventDefault()
   addTransaction({
-    amount:newAmount,
+    amount: Number(newAmount),
     desc: newDesc
-  })
+  });
+
+setDesc(' ');
+setAmount(0)
+
 }
 
 const getIncome = () =>{
@@ -38,7 +42,7 @@ const getExpense = () =>{
   
       <div className="container">
         <h1 className="text-center">Expense Tracker</h1>
-        <h3>Your Balance <br /> $245 </h3>
+        <h3>Your Balance <br /> {getIncome() + getExpense()} </h3>
   
         <div className="expense-container">
            <h3> INCOME <br />   {getIncome()} </h3>
@@ -67,12 +71,12 @@ const getExpense = () =>{
             <form className="transaction-form" onSubmit={handleAddition}>
               <label>
                 Enter Description <br />
-                <input type="tex" onChange={(ev) =>setDesc(ev.target.value)} required />
+                <input type="text" value={setDesc} placeholder="description" onChange={(ev) => setDesc(ev.target.value)} required />
               </label>
               <br />
               <label>
                 Enter Amount <br />
-                <input type="number" onChange={(ev) =>setAmount(ev.target.value)} required />
+                <input type="number" value={setAmount} onChange={(ev) => setAmount(ev.target.value)} required />
               </label>
               <br />
 <input type="submit" value="Add Transaction" />
