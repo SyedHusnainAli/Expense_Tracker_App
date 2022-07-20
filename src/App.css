@@ -38,3 +38,11 @@ padding: 15px 50px;
     margin: 5px 0;
     background-color: #fff;
 }
+
+.delete_items{
+    font-size: 16px;
+    border-radius: 2px;
+    background-color: white;
+    color: black;
+    border: 2px solid white; /* Green */
+}

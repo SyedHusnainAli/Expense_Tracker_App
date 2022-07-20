@@ -3,7 +3,7 @@ import {TransactionContext} from './transContext'
 
 function Child(){
 
-let {transactions,  addTransaction} = useContext(TransactionContext)
+let {transactions,  addTransaction,  dELTransaction} = useContext(TransactionContext)
 
 let [newDesc, setDesc] = useState("")
 let [newAmount, setAmount] = useState(0)
@@ -15,9 +15,7 @@ const handleAddition = (event) =>{
     desc: newDesc
   });
 
-setDesc(' ');
-setAmount(0)
-
+// 
 }
 
 const getIncome = () =>{
@@ -49,15 +47,17 @@ const getExpense = () =>{
            <h3> EXPENSE <br /> {getExpense()} </h3>
         </div>
   
-            <h3>histroy</h3>  
+            <h3>Histroy</h3>  
+
     
          <hr />
 
           <ul className="transaction-list">
-            {transactions.map((tranObj, ind)=>{
-           return (  <li key={ind}>
+            {transactions.map((tranObj)=>{
+           return (  <li key={tranObj.id}>
             <span> {tranObj.desc} </span>
             <span> {tranObj.amount} </span>
+            <button onClick={()=>dELTransaction(tranObj.id)}>X</button>
            </li>
            )
             })}
@@ -71,12 +71,12 @@ const getExpense = () =>{
             <form className="transaction-form" onSubmit={handleAddition}>
               <label>
                 Enter Description <br />
-                <input type="text" value={setDesc} placeholder="description" onChange={(ev) => setDesc(ev.target.value)} required />
+                <input type="text" placeholder="Description" onChange={(ev) => setDesc(ev.target.value)} required />
               </label>
               <br />
               <label>
                 Enter Amount <br />
-                <input type="number" value={setAmount} onChange={(ev) => setAmount(ev.target.value)} required />
+                <input type="number" placeholder="Amounts"  onChange={(ev) => setAmount(ev.target.value)} required />
               </label>
               <br />
 <input type="submit" value="Add Transaction" />
@@ -91,3 +91,6 @@ const getExpense = () =>{
   }
 
   export default Child;
+
+  // value={setAmount} value={setDesc} setDesc(' ');
+  // setAmount(0)
