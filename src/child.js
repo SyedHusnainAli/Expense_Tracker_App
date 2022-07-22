@@ -71,7 +71,7 @@ const getExpense = () =>{
             <form className="transaction-form" onSubmit={handleAddition}>
               <label>
                 Enter Description <br />
-                <input type="text" placeholder="Description" onChange={(ev) => setDesc(ev.target.value)} required />
+                <input type="text"  placeholder="Description" onChange={(ev) => setDesc(ev.target.value)} required />
               </label>
               <br />
               <label>
